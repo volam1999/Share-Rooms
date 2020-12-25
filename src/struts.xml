@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+ "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+ "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="default" extends="struts-default">
+		<interceptors>
+			<interceptor
+				class="net.tpcop.interceptor.LoginInterceptor"
+				name="loginInterceptor" />
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="loginInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="loginStack" />
+
+		<global-results>
+			<result name="login" type="redirect">signin.jsp</result>
+		</global-results>
+
+		<action name="*">
+			<result>/404.jsp/</result>
+		</action>
+
+		<action name="goRooms" class="net.tpcop.actions.RoomsAction"
+			method="execute">
+			<result name="success">rooms.jsp</result>
+		</action>
+
+		<action name="addRoom" class="net.tpcop.actions.RoomsAction"
+			method="AddRoom">
+			<result name="success" type="redirectAction">goRooms</result>
+			<result name="error">room.jsp</result>
+		</action>
+
+		<action name="goProfile"
+			class="net.tpcop.actions.ProfileAction" method="execute">
+			<result name="success">profile.jsp</result>
+		</action>
+
+		<action name="updateInformation"
+			class="net.tpcop.actions.ProfileAction" method="updateInformation">
+			<result name="success" type="redirectAction">
+				<param name="actionName">goProfile</param>
+				<param name="namespace">/user</param>
+			</result>
+		</action>
+
+		<action name="signIn" class="net.tpcop.actions.LoginAction">
+			<interceptor-ref name="defaultStack" />
+			<result name="success" type="redirect">
+				<param name="location">/user/index.jsp</param>
+			</result>
+			<result name="error">/signin.jsp</result>
+		</action>
+
+		<action name="goIndex" class="net.tpcop.actions.IndexAction">
+			<result name="success">
+				index.jsp
+			</result>
+		</action>
+
+		<action name="goSignIn"
+			class="net.tpcop.actions.RegisterAction" method="goSignIn">
+			<interceptor-ref name="defaultStack" />
+			<result name="success" type="redirect">
+				<param name="location">signin.jsp</param>
+			</result>
+		</action>
+
+		<action name="goSignUp" class="net.tpcop.actions.LoginAction"
+			method="goSignUp">
+			<interceptor-ref name="defaultStack" />
+			<result name="success" type="redirect">
+				<param name="location">signup.jsp</param>
+			</result>
+		</action>
+
+		<action name="doSignUp"
+			class="net.tpcop.actions.RegisterAction">
+			<interceptor-ref name="defaultStack" />
+			<result name="success">/signin.jsp</result>
+			<result name="error">/signup.jsp</result>
+		</action>
+
+		<action name="logout" class="net.tpcop.actions.LogoutAction">
+			<result name="success" type="redirect">
+				<param name="location">signin.jsp</param>
+				<param name="namespace">/</param>
+			</result>
+		</action>
+	</package>
+</struts>
