@@ -1,33 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
-
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!-- Tell the browser to be responsive to screen width -->
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords"
-	content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 4 admin, bootstrap 4, css3 dashboard, bootstrap 4 dashboard, AdminWrap lite admin bootstrap 4 dashboard, frontend, responsive bootstrap 4 admin template, Nice admin lite design, Nice admin lite dashboard bootstrap 4 dashboard template" />
+	content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 4 admin, bootstrap 4, css3 dashboard, bootstrap 4 dashboard, AdminWrap lite admin bootstrap 4 dashboard, frontend, responsive bootstrap 4 admin template, Nice admin lite design, Nice admin lite dashboard bootstrap 4 dashboard template">
 <meta name="description"
-	content="Nice Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework" />
-<meta name="robots" content="noindex,nofollow" />
-<title>Lists Rooms</title>
+	content="Nice Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin Dashboard</title>
 <link rel="canonical"
 	href="https://www.wrappixel.com/templates/niceadmin-lite/" />
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
-	href="../assets/images/favicon.png" />
+	href="../assets/images/favicon.png">
 <!-- Custom CSS -->
-<link href="../dist/css/style.min.css" rel="stylesheet" />
+<link href="../assets/libs/chartist/dist/chartist.min.css"
+	rel="stylesheet">
+<!-- Custom CSS -->
+<link href="../dist/css/style.min.css" rel="stylesheet">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 </head>
 
 <body>
@@ -49,14 +51,14 @@
 		<!-- ============================================================== -->
 		<!-- Topbar header - style you can find in pages.scss -->
 		<!-- ============================================================== -->
-		<jsp:include page="../includes/topHeader.jsp"></jsp:include>
+		<jsp:include page="../includes/admin/topHeader.jsp"></jsp:include>
 		<!-- ============================================================== -->
 		<!-- End Topbar header -->
 		<!-- ============================================================== -->
 		<!-- ============================================================== -->
 		<!-- Left Sidebar - style you can find in sidebar.scss  -->
 		<!-- ============================================================== -->
-		<jsp:include page="../includes/navbar.jsp"></jsp:include>
+		<jsp:include page="../includes/admin/navbar.jsp"></jsp:include>
 		<!-- ============================================================== -->
 		<!-- End Left Sidebar - style you can find in sidebar.scss  -->
 		<!-- ============================================================== -->
@@ -70,15 +72,14 @@
 			<div class="page-breadcrumb">
 				<div class="row">
 					<div class="col-5 align-self-center">
-						<h4 class="page-title">Rooms</h4>
+						<h4 class="page-title">Dashboard</h4>
 					</div>
 					<div class="col-7 align-self-center">
 						<div class="d-flex align-items-center justify-content-end">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">
-										Rooms</li>
+									<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
 								</ol>
 							</nav>
 						</div>
@@ -92,66 +93,58 @@
 			<!-- Container fluid  -->
 			<!-- ============================================================== -->
 			<div class="container-fluid">
-				<!-- ============================================================== -->
-				<!-- Start Page Content -->
+				<!-- Ravenue - page-view-bounce rate -->
 				<!-- ============================================================== -->
 				<div class="row">
+					<!-- column -->
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-								<div class="table-responsive">
-									<table class="table table-hover">
-										<thead>
+								<h4 class="page-title">Pending Rooms</h4>
+							</div>
+							<div class="table-responsive">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th scope="col">#</th>
+											<th scope="col">Author</th>
+											<th scope="col">Title</th>
+											<th scope="col">Area (m<sup>2</sup>)
+											</th>
+											<th scope="col">Prices (Millions)</th>
+											<th scope="col">Status</th>
+										</tr>
+									</thead>
+									<tbody>
+										<s:iterator value="dataList" var="room">
 											<tr>
-												<th scope="col">#</th>
-												<th scope="col">Author</th>
-												<th scope="col">Title</th>
-												<th scope="col">Area (m<sup>2</sup>)
-												</th>
-												<th scope="col">Prices (Millions)</th>
-												<th scope="col">Status</th>
-												<th scope="col">Actions</th>
+												<th scope="row"><s:property value="id" /></th>
+												<td><s:property value="author" /></td>
+												<td><s:property value="header" /></td>
+												<td><s:property value="area" /></td>
+												<td><s:property value="price" /></td>
+												<td
+													class='<s:if test="%{#room.status == 'Open'}">text-success</s:if><s:elseif test="%{#room.status == 'Closed'}">
+text-warning</s:elseif>'><b><s:property
+															value="status" /></b></td>
+
 											</tr>
-										</thead>
-										<tbody>
-											<s:iterator value="dataList" var="room">
-												<tr>
-													<th scope="row"><s:property value="id" /></th>
-													<td><s:property value="author" /></td>
-													<td><s:property value="header" /></td>
-													<td><s:property value="area" /></td>
-													<td><s:property value="price" /></td>
-													<td
-														class='<s:if test="%{#room.status == 'Open'}">text-success</s:if><s:elseif test="%{#room.status == 'Closed'}">
-text-danger</s:elseif>'><b><s:property
-																value="status" /></b></td>
-													<td>
-														<form action="roomDetails" method="POST">
-															<input name="roomID" type="hidden"
-																value='<s:property value="id" />' /> <input
-																name="authorEmail" type="hidden"
-																value='<s:property value="author" />' /> <input
-																type="submit" value="Details" class="btn btn-primary" />
-														</form>
-													</td>
-												</tr>
-											</s:iterator>
-										</tbody>
-									</table>
-								</div>
+										</s:iterator>
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!--==============================================================-->
-				<!-- End PAge Content -->
+				<!-- ============================================================== -->
+				<!-- Ravenue - page-view-bounce rate -->
 				<!-- ============================================================== -->
 				<!-- ============================================================== -->
-				<!-- Right sidebar -->
+				<!-- Recent comment and chats -->
 				<!-- ============================================================== -->
-				<!-- .right-sidebar -->
+
 				<!-- ============================================================== -->
-				<!-- End Right sidebar -->
+				<!-- Recent comment and chats -->
 				<!-- ============================================================== -->
 			</div>
 			<!-- ============================================================== -->
@@ -160,7 +153,7 @@ text-danger</s:elseif>'><b><s:property
 			<!-- ============================================================== -->
 			<!-- footer -->
 			<!-- ============================================================== -->
-			<jsp:include page="../includes/footer.jsp"></jsp:include>
+			<jsp:include page="../includes/admin/footer.jsp"></jsp:include>
 			<!-- ============================================================== -->
 			<!-- End footer -->
 			<!-- ============================================================== -->
@@ -187,5 +180,12 @@ text-danger</s:elseif>'><b><s:property
 	<script src="../dist/js/sidebarmenu.js"></script>
 	<!--Custom JavaScript -->
 	<script src="../dist/js/custom.min.js"></script>
+	<!--This page JavaScript -->
+	<!--chartis chart-->
+	<script src="../assets/libs/chartist/dist/chartist.min.js"></script>
+	<script
+		src="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+	<script src="../dist/js/pages/dashboards/dashboard1.js"></script>
 </body>
+
 </html>

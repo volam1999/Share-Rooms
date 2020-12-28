@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,15 +15,12 @@
 <meta name="description"
 	content="Nice Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
 <meta name="robots" content="noindex,nofollow">
-<title>User Dashboard</title>
+<title>Share Rooms</title>
 <link rel="canonical"
 	href="https://www.wrappixel.com/templates/niceadmin-lite/" />
 <!-- Favicon icon -->
 <link rel="icon" type="image/png" sizes="16x16"
 	href="../assets/images/favicon.png">
-<!-- Custom CSS -->
-<link href="../assets/libs/chartist/dist/chartist.min.css"
-	rel="stylesheet">
 <!-- Custom CSS -->
 <link href="../dist/css/style.min.css" rel="stylesheet">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -72,14 +71,15 @@
 			<div class="page-breadcrumb">
 				<div class="row">
 					<div class="col-5 align-self-center">
-						<h4 class="page-title">Dashboard</h4>
+						<h4 class="page-title">Shares Rooms</h4>
 					</div>
 					<div class="col-7 align-self-center">
 						<div class="d-flex align-items-center justify-content-end">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="#">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+									<li class="breadcrumb-item"><a href="goIndex">Home</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Shares
+										Rooms</li>
 								</ol>
 							</nav>
 						</div>
@@ -93,99 +93,106 @@
 			<!-- Container fluid  -->
 			<!-- ============================================================== -->
 			<div class="container-fluid">
-				<!-- Ravenue - page-view-bounce rate -->
 				<!-- ============================================================== -->
-				<div class="row">
-					<!-- column -->
-					<div class="col-12">
-						<div class="card">
-							<div class="card-body">
-								<h4 class="page-title">Latest Rooms</h4>
+				<!-- Start Page Content -->
+				<!-- ============================================================== -->
+				<!-- Row -->
+				<div class="card">
+					<div class="card-body">
+						<form action="addRoom" method="post"
+							class="form-horizontal form-material">
+							<div class="form-group">
+								<label class="col-md-12">Title</label>
+								<div class="col-md-12">
+									<input name="header" type="text" required="required"
+										class="form-control form-control-line">
+								</div>
 							</div>
-							<div class="table-responsive">
-								<table class="table table-hover">
-									<thead>
-										<tr>
-											<th scope="col">#</th>
-											<th scope="col">Author</th>
-											<th scope="col">Title</th>
-											<th scope="col">Area (m<sup>2</sup>)
-											</th>
-											<th scope="col">Prices (Millions)</th>
-											<th scope="col">Status</th>
-										</tr>
-									</thead>
-									<tbody>
-										<s:iterator value="dataList" var="room">
-											<tr>
-												<th scope="row"><s:property value="id" /></th>
-												<td><s:property value="author" /></td>
-												<td><s:property value="header" /></td>
-												<td><s:property value="area" /></td>
-												<td><s:property value="price" /></td>
-												<td
-													class='<s:if test="%{#room.status == 'Open'}">text-success</s:if><s:elseif test="%{#room.status == 'Closed'}">
-text-warning</s:elseif>'><b><s:property
-															value="status" /></b></td>
-
-											</tr>
-										</s:iterator>
-									</tbody>
-								</table>
+							<div class="form-group">
+								<label class="col-md-12">Prices</label>
+								<div class="col-md-12">
+									<input name="prices" type="text"
+										class="form-control form-control-line">
+								</div>
 							</div>
-						</div>
+							<div class="form-group">
+								<label class="col-md-12">Areas</label>
+								<div class="col-md-12">
+									<input name="area" type="text"
+										class="form-control form-control-line">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-12">Address</label>
+								<div class="col-md-12">
+									<input name="address" type="text"
+										class="form-control form-control-line">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-12">Message</label>
+								<div class="col-md-12">
+									<textarea name="body" rows="5"
+										class="form-control form-control-line" required="required"><s:property
+											value="message" /></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-12">
+									<a href="addroom.jsp" class="btn btn-danger"
+										style="color: #fff">Cancel</a>
+									<button class="btn btn-success">Share Rooms</button>
+								</div>
+							</div>
+						</form>
 					</div>
+					<!-- ============================================================== -->
+					<!-- End PAge Content -->
+					<!-- ============================================================== -->
+					<!-- ============================================================== -->
+					<!-- Right sidebar -->
+					<!-- ============================================================== -->
+					<!-- .right-sidebar -->
+					<!-- ============================================================== -->
+					<!-- End Right sidebar -->
+					<!-- ============================================================== -->
 				</div>
 				<!-- ============================================================== -->
-				<!-- Ravenue - page-view-bounce rate -->
+				<!-- End Container fluid  -->
 				<!-- ============================================================== -->
 				<!-- ============================================================== -->
-				<!-- Recent comment and chats -->
+				<!-- footer -->
 				<!-- ============================================================== -->
-
+				<footer class="footer text-center">
+					All Rights Reserved by Nice admin. Designed and Developed by <a
+						href="https://wrappixel.com">WrapPixel</a>.
+				</footer>
 				<!-- ============================================================== -->
-				<!-- Recent comment and chats -->
+				<!-- End footer -->
 				<!-- ============================================================== -->
 			</div>
 			<!-- ============================================================== -->
-			<!-- End Container fluid  -->
-			<!-- ============================================================== -->
-			<!-- ============================================================== -->
-			<!-- footer -->
-			<!-- ============================================================== -->
-			<jsp:include page="../includes/footer.jsp"></jsp:include>
-			<!-- ============================================================== -->
-			<!-- End footer -->
+			<!-- End Page wrapper  -->
 			<!-- ============================================================== -->
 		</div>
 		<!-- ============================================================== -->
-		<!-- End Page wrapper  -->
+		<!-- End Wrapper -->
 		<!-- ============================================================== -->
-	</div>
-	<!-- ============================================================== -->
-	<!-- End Wrapper -->
-	<!-- ============================================================== -->
-	<!-- ============================================================== -->
-	<!-- All Jquery -->
-	<!-- ============================================================== -->
-	<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-	<!-- Bootstrap tether Core JavaScript -->
-	<script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
-	<script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-	<!-- slimscrollbar scrollbar JavaScript -->
-	<script src="../assets/extra-libs/sparkline/sparkline.js"></script>
-	<!--Wave Effects -->
-	<script src="../dist/js/waves.js"></script>
-	<!--Menu sidebar -->
-	<script src="../dist/js/sidebarmenu.js"></script>
-	<!--Custom JavaScript -->
-	<script src="../dist/js/custom.min.js"></script>
-	<!--This page JavaScript -->
-	<!--chartis chart-->
-	<script src="../assets/libs/chartist/dist/chartist.min.js"></script>
-	<script
-		src="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-	<script src="../dist/js/pages/dashboards/dashboard1.js"></script>
+		<!-- ============================================================== -->
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+		<!-- Bootstrap tether Core JavaScript -->
+		<script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
+		<script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+		<!-- slimscrollbar scrollbar JavaScript -->
+		<script src="../assets/extra-libs/sparkline/sparkline.js"></script>
+		<!--Wave Effects -->
+		<script src="../dist/js/waves.js"></script>
+		<!--Menu sidebar -->
+		<script src="../dist/js/sidebarmenu.js"></script>
+		<!--Custom JavaScript -->
+		<script src="../dist/js/custom.min.js"></script>
 </body>
 
 </html>

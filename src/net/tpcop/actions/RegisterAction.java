@@ -1,5 +1,8 @@
 package net.tpcop.actions;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 import net.tpcop.model.Database;
@@ -44,16 +47,23 @@ public class RegisterAction extends ActionSupport {
 		try {
 			// Connect to database 'tpcop'
 			db = new Database();
-			String query = "INSERT INTO accounts VALUES (N'" + fullname.trim() + "', '" + email.trim() + "', '"
-					+ password.trim() + "');";
-			if (db.execute(query)) {
-				return SUCCESS;
-			} else {
-				return ERROR;
-			}
+			Connection conn = db.getConnection();
+			String query = "INSERT INTO accounts VALUES (?,?,?,?,?,?,?,?);";
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setNString(1, fullname);
+			ps.setString(2, email);
+			ps.setString(3, password);
+			ps.setString(4, "");
+			ps.setNString(5, "");
+			ps.setNString(6, "");
+			ps.setString(7, "0");
+			ps.setString(8, "0");
+			int row = ps.executeUpdate();
+			System.out.println(row + "row added");
+			return SUCCESS;
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return "failed";
+			return ERROR;
 		}
 	}
 

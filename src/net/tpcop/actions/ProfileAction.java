@@ -92,8 +92,8 @@ public class ProfileAction extends ActionSupport {
 			if (rs != null) {
 				while (rs.next()) {
 					fullname = rs.getNString("fullname").trim();
-					email = rs.getNString("email").trim();
-					password = rs.getNString("password").trim();
+					email = rs.getString("email").trim();
+					password = rs.getString("password").trim();
 					phone = rs.getString("phone");
 					message = rs.getNString("message");
 					address = rs.getNString("address");
@@ -124,7 +124,8 @@ public class ProfileAction extends ActionSupport {
 			phone = (profile.getPhone() != phone && !phone.isEmpty()) ? phone : profile.getPhone();
 			message = (profile.getMessage() != message && !message.isEmpty()) ? message : profile.getMessage();
 
-			String sql = "UPDATE accounts SET fullname = ?, email = ?, password= ?, phone = ?, message = ? WHERE";
+			String sql = "UPDATE accounts SET fullname = ?, email = ?, password= ?, phone = ?, message = ?, isAdmin = '"
+					+ session.get("isAdmin").toString() + "', verified = '1' WHERE";
 			sql += " email = ?";
 
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -164,8 +165,8 @@ public class ProfileAction extends ActionSupport {
 				profile = new Profile();
 				while (rs.next()) {
 					profile.setFullname(rs.getNString("fullname").trim());
-					profile.setEmail(rs.getNString("email").trim());
-					profile.setPassword(rs.getNString("password").trim());
+					profile.setEmail(rs.getString("email").trim());
+					profile.setPassword(rs.getString("password").trim());
 					profile.setPhone(rs.getString("phone"));
 					profile.setMessage(rs.getNString("message"));
 				}

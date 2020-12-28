@@ -30,10 +30,16 @@
 			<result name="success">rooms.jsp</result>
 		</action>
 
+		<action name="roomDetails"
+			class="net.tpcop.actions.RoomsAction" method="goDetails">
+			<result name="success">roomdetail.jsp</result>
+		</action>
+
 		<action name="addRoom" class="net.tpcop.actions.RoomsAction"
 			method="AddRoom">
 			<result name="success" type="redirectAction">goRooms</result>
 			<result name="error">room.jsp</result>
+			<result name="unverified" type="redirectAction">goProfile</result>
 		</action>
 
 		<action name="goProfile"
@@ -51,10 +57,12 @@
 
 		<action name="signIn" class="net.tpcop.actions.LoginAction">
 			<interceptor-ref name="defaultStack" />
-			<result name="success" type="redirect">
-				<param name="location">/user/index.jsp</param>
+			<result name="user" type="redirectAction">
+				user/goIndex
 			</result>
-			<result name="error">/signin.jsp</result>
+			<result name="admin" type="redirectAction">
+				admin/goIndex
+			</result>
 		</action>
 
 		<action name="goIndex" class="net.tpcop.actions.IndexAction">

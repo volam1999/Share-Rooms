@@ -19,11 +19,12 @@ public class RoomsAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 
 	private Database db;
-	private String header, body, name, prices, area, address;
+	private String header, body, name, prices, area, address, roomID, authorName, phone, authorEmail;
 
 	private List<Room> dataList = null;
 	private ResultSet rs = null;
 	private Map<String, Object> session = ActionContext.getContext().getSession();
+	private String verified = session.get("VERIFIED").toString();
 
 	public String getAddress() {
 		return address;
@@ -81,44 +82,56 @@ public class RoomsAction extends ActionSupport {
 		this.area = area;
 	}
 
+	public String getRoomID() {
+		return roomID;
+	}
+
+	public void setRoomID(String roomID) {
+		this.roomID = roomID;
+	}
+
+	public String getAuthorName() {
+		return authorName;
+	}
+
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getAuthorEmail() {
+		return authorEmail;
+	}
+
+	public void setAuthorEmail(String authorEmail) {
+		this.authorEmail = authorEmail;
+	}
+
 	@Override
 	public String execute() throws Exception {
-		try {
-			// Connect to database 'tpcop'
-			db = new Database();
-			String query = "SELECT * FROM rooms";
-			rs = db.executeQuery(query);
-			dataList = new ArrayList<Room>();
-			if (rs != null) {
-				Room room = null;
-				while (rs.next()) {
-					room = new Room();
-					room.setId(rs.getInt("id") + "");
-					room.setAuthor(rs.getString("author"));
-					room.setHeader(rs.getNString("header"));
-					room.setBody(rs.getNString("body"));
-					room.setPrice(rs.getString("price"));
-					room.setArea(rs.getString("area"));
-					room.setAddress(rs.getNString("address"));
-					room.setStatus(rs.getString("status"));
-					dataList.add(room);
-					System.out.println("Add room successfully with ID:" + rs.getInt("id"));
-				}
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e.toString());
-			return ERROR;
+		System.out.println(session.get("ADMIN").toString());
+		if (session.get("ADMIN").toString().equals("0")) {
+			return userListRooms();
+		} else {
+			return adminListRooms();
 		}
-
-		return SUCCESS;
 	}
 
 	public String AddRoom() {
 		try {
+			if (verified.equals("0")) {
+				return "unverified";
+			}
+
 			// Connect to database 'tpcop'
 			db = new Database();
-
 			String sql = "INSERT INTO rooms VALUES(?, ?, ?, ?, ?, ?, ?)";
 
 			PreparedStatement ps = db.getConnection().prepareStatement(sql);
@@ -138,6 +151,104 @@ public class RoomsAction extends ActionSupport {
 			System.out.println(e.toString());
 			return ERROR;
 		}
+	}
+
+	public String goDetails() {
+		try {
+			// Connect to database 'tpcop'
+			db = new Database();
+			System.out.println("roomID = " + getRoomID());
+			System.out.println("authorEmail = " + authorEmail);
+			String query = "SELECT * FROM rooms WHERE id =" + roomID;
+			rs = db.executeQuery(query);
+			if (rs != null) {
+				while (rs.next()) {
+					header = rs.getNString("header");
+					body = rs.getNString("body");
+					prices = rs.getString("price");
+					area = rs.getString("area");
+					address = rs.getNString("address");
+					System.out.println("GET room successfully with ID:" + roomID);
+				}
+			}
+
+			query = "SELECT * FROM accounts WHERE email = '" + authorEmail + "'";
+			rs = db.executeQuery(query);
+			if (rs != null) {
+				while (rs.next()) {
+					authorName = rs.getNString("fullname");
+					phone = rs.getString("phone");
+				}
+			}
+			System.out.println("GET INFO COMPLETED");
+			return SUCCESS;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.toString());
+			return ERROR;
+		}
+	}
+
+	private String userListRooms() {
+		try {
+			// Connect to database 'tpcop'
+			db = new Database();
+			String query = "SELECT * FROM rooms WHERE status != 'Pending'";
+			rs = db.executeQuery(query);
+			dataList = new ArrayList<Room>();
+			if (rs != null) {
+				Room room = null;
+				while (rs.next()) {
+					room = new Room();
+					room.setId(rs.getInt("id") + "");
+					room.setAuthor(rs.getString("author"));
+					room.setHeader(rs.getNString("header"));
+					room.setBody(rs.getNString("body"));
+					room.setPrice(rs.getString("price"));
+					room.setArea(rs.getString("area"));
+					room.setAddress(rs.getNString("address"));
+					room.setStatus(rs.getString("status"));
+					dataList.add(room);
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.toString());
+			return ERROR;
+		}
+
+		return SUCCESS;
+	}
+
+	private String adminListRooms() {
+		try {
+			// Connect to database 'tpcop'
+			db = new Database();
+			String query = "SELECT * FROM rooms WHERE status = 'Pending'";
+			rs = db.executeQuery(query);
+			dataList = new ArrayList<Room>();
+			if (rs != null) {
+				Room room = null;
+				while (rs.next()) {
+					room = new Room();
+					room.setId(rs.getInt("id") + "");
+					room.setAuthor(rs.getString("author"));
+					room.setHeader(rs.getNString("header"));
+					room.setBody(rs.getNString("body"));
+					room.setPrice(rs.getString("price"));
+					room.setArea(rs.getString("area"));
+					room.setAddress(rs.getNString("address"));
+					room.setStatus(rs.getString("status"));
+					dataList.add(room);
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.toString());
+			return ERROR;
+		}
+
+		return SUCCESS;
 	}
 
 }
