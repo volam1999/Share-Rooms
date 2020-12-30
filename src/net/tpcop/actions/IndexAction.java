@@ -22,6 +22,7 @@ public class IndexAction extends ActionSupport {
 	private ResultSet rs = null;
 	private List<Room> dataList = null;
 	private Map<String, Object> session = ActionContext.getContext().getSession();
+	private int totalUser, totalRequest, totalOpen, totalClosed;
 
 	public List<Room> getDataList() {
 		return dataList;
@@ -29,6 +30,46 @@ public class IndexAction extends ActionSupport {
 
 	public void setDataList(List<Room> dataList) {
 		this.dataList = dataList;
+	}
+
+	public int getTotalUser() {
+		return totalUser;
+	}
+
+	public void setTotalUser(int totalUser) {
+		this.totalUser = totalUser;
+	}
+
+	public int getTotalRequest() {
+		return totalRequest;
+	}
+
+	public void setTotalRequest(int totalRequest) {
+		this.totalRequest = totalRequest;
+	}
+
+	public int getTotalOpen() {
+		return totalOpen;
+	}
+
+	public void setTotalOpen(int totalOpen) {
+		this.totalOpen = totalOpen;
+	}
+
+	public int getTotalPending() {
+		return totalClosed;
+	}
+
+	public void setTotalPending(int totalPending) {
+		this.totalClosed = totalPending;
+	}
+
+	public int getTotalClosed() {
+		return totalClosed;
+	}
+
+	public void setTotalClosed(int totalClosed) {
+		this.totalClosed = totalClosed;
 	}
 
 	@Override
@@ -94,6 +135,51 @@ public class IndexAction extends ActionSupport {
 					dataList.add(room);
 				}
 			}
+
+			// get number of user
+			query = "SELECT COUNT('id') FROM accounts";
+			rs = db.executeQuery(query);
+			if (rs.next()) {
+				int numberOfRows = rs.getInt(1);
+				System.out.println("numberOfUser= " + numberOfRows);
+				totalUser = numberOfRows;
+			} else {
+				System.out.println("error: could not get the record counts");
+			}
+
+			// get number of request
+			query = "SELECT COUNT('id') FROM rooms WHERE status = 'Pending'";
+			rs = db.executeQuery(query);
+			if (rs.next()) {
+				int numberOfRows = rs.getInt(1);
+				System.out.println("numberOfRequest= " + numberOfRows);
+				totalRequest = numberOfRows;
+			} else {
+				System.out.println("error: could not get the record counts");
+			}
+
+			// get number of approved request
+			query = "SELECT COUNT('id') FROM rooms WHERE status = 'Open'";
+			rs = db.executeQuery(query);
+			if (rs.next()) {
+				int numberOfRows = rs.getInt(1);
+				System.out.println("numberOfOpen= " + numberOfRows);
+				totalOpen = numberOfRows;
+			} else {
+				System.out.println("error: could not get the record counts");
+			}
+
+			// get number of denied request
+			query = "SELECT COUNT('id') FROM rooms WHERE status = 'Closed'";
+			rs = db.executeQuery(query);
+			if (rs.next()) {
+				int numberOfRows = rs.getInt(1);
+				System.out.println("numberOfClosed= " + numberOfRows);
+				totalClosed = numberOfRows;
+			} else {
+				System.out.println("error: could not get the record counts");
+			}
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.toString());

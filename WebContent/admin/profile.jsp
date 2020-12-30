@@ -50,14 +50,14 @@
 		<!-- ============================================================== -->
 		<!-- Topbar header - style you can find in pages.scss -->
 		<!-- ============================================================== -->
-		<jsp:include page="../includes/topHeader.jsp"></jsp:include>
+		<jsp:include page="../includes/admin/topHeader.jsp"></jsp:include>
 		<!-- ============================================================== -->
 		<!-- End Topbar header -->
 		<!-- ============================================================== -->
 		<!-- ============================================================== -->
 		<!-- Left Sidebar - style you can find in sidebar.scss  -->
 		<!-- ============================================================== -->
-		<jsp:include page="../includes/navbar.jsp"></jsp:include>
+		<jsp:include page="../includes/admin/navbar.jsp"></jsp:include>
 		<!-- ============================================================== -->
 		<!-- End Left Sidebar - style you can find in sidebar.scss  -->
 		<!-- ============================================================== -->
@@ -188,7 +188,7 @@
 										<div class="col-md-12">
 											<input name="phone" type="text"
 												placeholder='<s:property value="phone"/>'
-												class="form-control form-control-line">
+												class="form-control form-control-line" required="required">
 										</div>
 									</div>
 									<div class="form-group">
@@ -228,7 +228,7 @@
 			<!-- ============================================================== -->
 			<!-- footer -->
 			<!-- ============================================================== -->
-			<jsp:include page="../includes/footer.jsp"></jsp:include>
+			<jsp:include page="../includes/admin/footer.jsp"></jsp:include>
 			<!-- ============================================================== -->
 			<!-- End footer -->
 			<!-- ============================================================== -->

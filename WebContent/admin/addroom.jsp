@@ -50,14 +50,14 @@
 		<!-- ============================================================== -->
 		<!-- Topbar header - style you can find in pages.scss -->
 		<!-- ============================================================== -->
-		<jsp:include page="../includes/topHeader.jsp"></jsp:include>
+		<jsp:include page="../includes/admin/topHeader.jsp"></jsp:include>
 		<!-- ============================================================== -->
 		<!-- End Topbar header -->
 		<!-- ============================================================== -->
 		<!-- ============================================================== -->
 		<!-- Left Sidebar - style you can find in sidebar.scss  -->
 		<!-- ============================================================== -->
-		<jsp:include page="../includes/navbar.jsp"></jsp:include>
+		<jsp:include page="../includes/admin/navbar.jsp"></jsp:include>
 		<!-- ============================================================== -->
 		<!-- End Left Sidebar - style you can find in sidebar.scss  -->
 		<!-- ============================================================== -->
@@ -163,10 +163,7 @@
 				<!-- ============================================================== -->
 				<!-- footer -->
 				<!-- ============================================================== -->
-				<footer class="footer text-center">
-					All Rights Reserved by Nice admin. Designed and Developed by <a
-						href="https://wrappixel.com">WrapPixel</a>.
-				</footer>
+				<jsp:include page="../includes/admin/footer.jsp"></jsp:include>
 				<!-- ============================================================== -->
 				<!-- End footer -->
 				<!-- ============================================================== -->

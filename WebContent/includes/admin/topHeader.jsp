@@ -82,7 +82,9 @@
 							class="dropdown-item" href="javascript:void(0)"><i
 							class="ti-wallet m-r-5 m-l-5"></i> My Balance</a> <a
 							class="dropdown-item" href="javascript:void(0)"><i
-							class="ti-email m-r-5 m-l-5"></i> Inbox</a>
+							class="ti-email m-r-5 m-l-5"></i> Inbox</a> <a class="dropdown-item"
+							href="logout"><i class="ti-lock m-r-5 m-l-5"></i> LogOut</a>
+
 					</div></li>
 				<!-- ============================================================== -->
 				<!-- User profile and search -->

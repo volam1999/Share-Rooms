@@ -1,7 +1,7 @@
 package net.tpcop.model;
 
 public class Profile {
-	private String fullname, email, password, phone, message;
+	private String id, fullname, email, password, phone, message, isAdmin, isVerified;
 
 	public Profile() {
 		super();
@@ -45,6 +45,30 @@ public class Profile {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(String isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	public String getIsVerified() {
+		return isVerified;
+	}
+
+	public void setIsVerified(String isVerified) {
+		this.isVerified = isVerified;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

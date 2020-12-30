@@ -1,5 +1,6 @@
 package net.tpcop.actions;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -125,6 +126,7 @@ public class RoomsAction extends ActionSupport {
 	}
 
 	public String AddRoom() {
+		System.out.println(verified);
 		try {
 			if (verified.equals("0")) {
 				return "unverified";
@@ -145,7 +147,6 @@ public class RoomsAction extends ActionSupport {
 			int x = ps.executeUpdate();
 			System.out.println(x + " room added");
 			return SUCCESS;
-
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.toString());
@@ -246,6 +247,54 @@ public class RoomsAction extends ActionSupport {
 			// TODO: handle exception
 			System.out.println(e.toString());
 			return ERROR;
+		}
+
+		return SUCCESS;
+	}
+
+	public String approveRequest() {
+		try {
+			// Connect to database 'tpcop'
+			db = new Database();
+			Connection conn = db.getConnection();
+
+			String sql = "UPDATE rooms SET status = ? WHERE";
+			sql += " id = ?";
+
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, "Open");
+			ps.setString(2, roomID);
+
+			int i = ps.executeUpdate();
+			System.out.println(i + " record effected");
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.toString());
+		}
+
+		return SUCCESS;
+	}
+
+	public String cancelRequest() {
+		try {
+			// Connect to database 'tpcop'
+			db = new Database();
+			Connection conn = db.getConnection();
+
+			String sql = "UPDATE rooms SET status = ? WHERE";
+			sql += " id = ?";
+
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, "Closed");
+			ps.setString(2, roomID);
+
+			int i = ps.executeUpdate();
+			System.out.println(i + " record effected");
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.toString());
 		}
 
 		return SUCCESS;

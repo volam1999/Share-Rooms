@@ -37,9 +37,19 @@
 
 		<action name="addRoom" class="net.tpcop.actions.RoomsAction"
 			method="AddRoom">
-			<result name="success" type="redirectAction">goRooms</result>
+			<result name="success">addroom.jsp</result>
 			<result name="error">room.jsp</result>
-			<result name="unverified" type="redirectAction">goProfile</result>
+			<result name="unverified" type="redirectAction">/user/goProfile</result>
+		</action>
+
+		<action name="approveRequest"
+			class="net.tpcop.actions.RoomsAction" method="approveRequest">
+			<result name="success" type="redirectAction">admin/goRooms</result>
+		</action>
+
+		<action name="cancelRequest"
+			class="net.tpcop.actions.RoomsAction" method="cancelRequest">
+			<result name="success" type="redirectAction">admin/goRooms</result>
 		</action>
 
 		<action name="goProfile"
@@ -55,13 +65,22 @@
 			</result>
 		</action>
 
+		<action name="userList" class="net.tpcop.actions.ProfileAction"
+			method="userList">
+			<result name="success">
+				usermanagement.jsp
+			</result>
+		</action>
+
 		<action name="signIn" class="net.tpcop.actions.LoginAction">
 			<interceptor-ref name="defaultStack" />
 			<result name="user" type="redirectAction">
-				user/goIndex
+				<param name="actionName">goIndex</param>
+				<param name="namespace">user</param>
 			</result>
 			<result name="admin" type="redirectAction">
-				admin/goIndex
+				<param name="actionName">goIndex</param>
+				<param name="namespace">admin</param>
 			</result>
 		</action>
 

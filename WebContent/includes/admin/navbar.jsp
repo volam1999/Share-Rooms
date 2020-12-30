@@ -29,6 +29,12 @@
 				</a></li>
 				<li class="sidebar-item"><a
 					class="sidebar-link waves-effect waves-dark sidebar-link"
+					href="userList" aria-expanded="false"> <i
+						class="mdi mdi-account-multiple"></i> <span class="hide-menu">User
+							Management</span>
+				</a></li>
+				<li class="sidebar-item"><a
+					class="sidebar-link waves-effect waves-dark sidebar-link"
 					href="logout" aria-expanded="false"> <i
 						class="mdi mdi-exit-to-app"></i> <span class="hide-menu">LogOut</span>
 				</a></li>

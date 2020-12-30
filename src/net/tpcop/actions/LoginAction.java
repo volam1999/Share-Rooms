@@ -48,7 +48,7 @@ public class LoginAction extends ActionSupport {
 							&& (rs.getString("password").trim().equals(password))) {
 						Map<String, Object> session = ActionContext.getContext().getSession();
 						session.put("EMAIL", email);
-						session.put("VERIFIED", rs.getString("verified").toString());
+						session.put("VERIFIED", rs.getString("isVerified").toString());
 						session.put("ADMIN", rs.getString("isAdmin").toString());
 
 						if (rs.getString("isAdmin").equals("0")) {

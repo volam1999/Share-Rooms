@@ -3,6 +3,8 @@ package net.tpcop.actions;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -19,6 +21,7 @@ public class ProfileAction extends ActionSupport {
 
 	private Database db;
 	private Profile profile;
+	private List<Profile> dataList;
 
 	Map<String, Object> session = ActionContext.getContext().getSession();
 	String sessionEmail = session.get("EMAIL").toString();
@@ -73,6 +76,14 @@ public class ProfileAction extends ActionSupport {
 		this.message = message;
 	}
 
+	public List<Profile> getDataList() {
+		return dataList;
+	}
+
+	public void setDataList(List<Profile> dataList) {
+		this.dataList = dataList;
+	}
+
 	@Override
 	public String execute() throws Exception {
 		try {
@@ -113,7 +124,6 @@ public class ProfileAction extends ActionSupport {
 			// Connect to database 'tpcop'
 			db = new Database();
 			Connection conn = db.getConnection();
-			System.out.println(fullname);
 			profile = getProfile();
 
 			// prepare update data
@@ -125,7 +135,7 @@ public class ProfileAction extends ActionSupport {
 			message = (profile.getMessage() != message && !message.isEmpty()) ? message : profile.getMessage();
 
 			String sql = "UPDATE accounts SET fullname = ?, email = ?, password= ?, phone = ?, message = ?, isAdmin = '"
-					+ session.get("isAdmin").toString() + "', verified = '1' WHERE";
+					+ session.get("ADMIN").toString() + "', isVerified = '1' WHERE";
 			sql += " email = ?";
 
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -177,6 +187,44 @@ public class ProfileAction extends ActionSupport {
 			// TODO: handle exception
 			System.out.println(e.toString());
 			return null;
+		}
+	}
+
+	public String userList() {
+		try {
+			// Connect to database 'tpcop'
+			db = new Database();
+			Connection conn = db.getConnection();
+
+			String sql = "SELECT * FROM accounts WHERE";
+			sql += " email != ?";
+
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, sessionEmail);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs != null) {
+				dataList = new ArrayList<Profile>();
+				while (rs.next()) {
+					profile = new Profile();
+					profile.setId(rs.getInt("id") + "");
+					profile.setFullname(rs.getNString("fullname").trim());
+					profile.setEmail(rs.getString("email").trim());
+					profile.setPhone(rs.getString("phone"));
+					profile.setIsVerified(rs.getString("isVerified"));
+					profile.setIsAdmin(rs.getString("isAdmin"));
+					System.out.println(profile.getIsVerified());
+
+					dataList.add(profile);
+				}
+			}
+			return SUCCESS;
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.toString());
+			return ERROR;
 		}
 	}
 

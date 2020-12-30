@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
+
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,22 +14,7 @@
 	content="Nice Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
 <meta name="robots" content="noindex,nofollow">
 <title>Admin Dashboard</title>
-<link rel="canonical"
-	href="https://www.wrappixel.com/templates/niceadmin-lite/" />
-<!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16"
-	href="../assets/images/favicon.png">
-<!-- Custom CSS -->
-<link href="../assets/libs/chartist/dist/chartist.min.css"
-	rel="stylesheet">
-<!-- Custom CSS -->
-<link href="../dist/css/style.min.css" rel="stylesheet">
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+<jsp:include page="../includes/allcss.jsp"></jsp:include>
 </head>
 
 <body>
@@ -98,94 +83,220 @@
 				<div class="row">
 					<!-- column -->
 					<div class="col-12">
+						<div class="alert alert-info">Note: we recomonded you to
+							please make your one own css file &amp; one js files and add that
+							in your page, so whenever the update of Nice admin comes it does
+							not affect your code.</div>
+						<div class="card-group">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="d-flex no-block align-items-center">
+												<div>
+													<i class="mdi mdi-emoticon font-20 text-muted"></i>
+													<p class="font-16 m-b-5">New Clients</p>
+												</div>
+												<div class="ml-auto">
+													<h1 class="font-light text-right">
+														<s:property value="totalUser" />
+													</h1>
+												</div>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="progress">
+												<div class="progress-bar bg-info" role="progressbar"
+													style="width: 75%; height: 6px;" aria-valuenow="25"
+													aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Column -->
+							<!-- Column -->
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="d-flex no-block align-items-center">
+												<div>
+													<i class="mdi mdi-image font-20  text-muted"></i>
+													<p class="font-16 m-b-5">New Request</p>
+												</div>
+												<div class="ml-auto">
+													<h1 class="font-light text-right">
+														<s:property value="totalRequest" />
+													</h1>
+												</div>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="progress">
+												<div class="progress-bar bg-success" role="progressbar"
+													style="width: 60%; height: 6px;" aria-valuenow="25"
+													aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Column -->
+							<!-- Column -->
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="d-flex no-block align-items-center">
+												<div>
+													<i class="mdi mdi-currency-eur font-20 text-muted"></i>
+													<p class="font-16 m-b-5">Request Accepted</p>
+												</div>
+												<div class="ml-auto">
+													<h1 class="font-light text-right">
+														<s:property value="totalOpen" />
+													</h1>
+												</div>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="progress">
+												<div class="progress-bar bg-purple" role="progressbar"
+													style="width: 65%; height: 6px;" aria-valuenow="25"
+													aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Column -->
+							<!-- Column -->
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="d-flex no-block align-items-center">
+												<div>
+													<i class="mdi mdi-poll font-20 text-muted"></i>
+													<p class="font-16 m-b-5">Request Closed</p>
+												</div>
+												<div class="ml-auto">
+													<h1 class="font-light text-right">
+														<s:property value="totalClosed" />
+													</h1>
+												</div>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="progress">
+												<div class="progress-bar bg-danger" role="progressbar"
+													style="width: 70%; height: 6px;" aria-valuenow="25"
+													aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
 						<div class="card">
 							<div class="card-body">
-								<h4 class="page-title">Pending Rooms</h4>
-							</div>
-							<div class="table-responsive">
-								<table class="table table-hover">
-									<thead>
-										<tr>
-											<th scope="col">#</th>
-											<th scope="col">Author</th>
-											<th scope="col">Title</th>
-											<th scope="col">Area (m<sup>2</sup>)
-											</th>
-											<th scope="col">Prices (Millions)</th>
-											<th scope="col">Status</th>
-										</tr>
-									</thead>
-									<tbody>
-										<s:iterator value="dataList" var="room">
-											<tr>
-												<th scope="row"><s:property value="id" /></th>
-												<td><s:property value="author" /></td>
-												<td><s:property value="header" /></td>
-												<td><s:property value="area" /></td>
-												<td><s:property value="price" /></td>
-												<td
-													class='<s:if test="%{#room.status == 'Open'}">text-success</s:if><s:elseif test="%{#room.status == 'Closed'}">
-text-warning</s:elseif>'><b><s:property
-															value="status" /></b></td>
+								<h4 class="card-title">File export</h4>
+								<div class="table-responsive">
+									<div id="file_export_wrapper"
+										class="dataTables_wrapper container-fluid dt-bootstrap4">
 
-											</tr>
-										</s:iterator>
-									</tbody>
-								</table>
+										<table id="file_export"
+											class="table table-striped table-bordered display dataTable"
+											role="grid" aria-describedby="file_export_info">
+											<thead>
+												<tr role="row">
+													<th class="sorting_asc" tabindex="0"
+														aria-controls="file_export" rowspan="1" colspan="1"
+														aria-sort="ascending"
+														aria-label="# activate to sort column descending"
+														style="width: 0px;">#</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="file_export" rowspan="1" colspan="1"
+														aria-label="Author: activate to sort column ascending"
+														style="width: 0px;">Author</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="file_export" rowspan="1" colspan="1"
+														aria-label="Title: activate to sort column ascending"
+														style="width: 0px;">Title</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="file_export" rowspan="1" colspan="1"
+														aria-label="Area: activate to sort column ascending"
+														style="width: 0px;">Area (m<sup>2</sup>)
+													</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="file_export" rowspan="1" colspan="1"
+														aria-label="Price: activate to sort column ascending"
+														style="width: 0px;">Price (Millions)</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="file_export" rowspan="1" colspan="1"
+														aria-label="Status: activate to sort column ascending"
+														style="width: 0px;">Status</th>
+												</tr>
+											</thead>
+											<tbody>
+												<s:iterator value="dataList" var="room">
+													<tr>
+														<th scope="row"><s:property value="id" /></th>
+														<td><s:property value="author" /></td>
+														<td><s:property value="header" /></td>
+														<td align="center"><s:property value="area" /></td>
+														<td align="center"><s:property value="price" /></td>
+														<td
+															class='<s:if test="%{#room.status == 'Open'}">text-success</s:if><s:elseif test="%{#room.status == 'Closed'}">
+text-warning</s:elseif>'><b
+															class="label label-inverse"><s:property
+																	value="status" /></b></td>
+
+													</tr>
+												</s:iterator>
+											</tbody>
+											<tfoot>
+												<tr>
+													<th rowspan="1" colspan="1">#</th>
+													<th rowspan="1" colspan="1">Author</th>
+													<th rowspan="1" colspan="1">Title</th>
+													<th rowspan="1" colspan="1">Area (m<sup>2</sup>)
+													</th>
+													<th rowspan="1" colspan="1">Price (Millions)</th>
+													<th rowspan="1" colspan="1">Status</th>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<!-- ============================================================== -->
-				<!-- Ravenue - page-view-bounce rate -->
-				<!-- ============================================================== -->
-				<!-- ============================================================== -->
-				<!-- Recent comment and chats -->
-				<!-- ============================================================== -->
 
-				<!-- ============================================================== -->
-				<!-- Recent comment and chats -->
-				<!-- ============================================================== -->
+					<!-- ============================================================== -->
+					<!-- End Container fluid  -->
+					<!-- ============================================================== -->
+					<!-- ============================================================== -->
+					<!-- footer -->
+					<!-- ============================================================== -->
+
+					<!-- ============================================================== -->
+					<!-- End footer -->
+					<!-- ============================================================== -->
+				</div>
 			</div>
-			<!-- ============================================================== -->
-			<!-- End Container fluid  -->
-			<!-- ============================================================== -->
-			<!-- ============================================================== -->
-			<!-- footer -->
-			<!-- ============================================================== -->
-			<jsp:include page="../includes/admin/footer.jsp"></jsp:include>
-			<!-- ============================================================== -->
-			<!-- End footer -->
-			<!-- ============================================================== -->
 		</div>
 		<!-- ============================================================== -->
 		<!-- End Page wrapper  -->
 		<!-- ============================================================== -->
 	</div>
-	<!-- ============================================================== -->
-	<!-- End Wrapper -->
-	<!-- ============================================================== -->
-	<!-- ============================================================== -->
-	<!-- All Jquery -->
-	<!-- ============================================================== -->
-	<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-	<!-- Bootstrap tether Core JavaScript -->
-	<script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
-	<script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-	<!-- slimscrollbar scrollbar JavaScript -->
-	<script src="../assets/extra-libs/sparkline/sparkline.js"></script>
-	<!--Wave Effects -->
-	<script src="../dist/js/waves.js"></script>
-	<!--Menu sidebar -->
-	<script src="../dist/js/sidebarmenu.js"></script>
-	<!--Custom JavaScript -->
-	<script src="../dist/js/custom.min.js"></script>
-	<!--This page JavaScript -->
-	<!--chartis chart-->
-	<script src="../assets/libs/chartist/dist/chartist.min.js"></script>
-	<script
-		src="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-	<script src="../dist/js/pages/dashboards/dashboard1.js"></script>
+
+
+	<jsp:include page="../includes/allfooterjs.jsp"></jsp:include>
+
 </body>
 
 </html>
