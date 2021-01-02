@@ -14,22 +14,7 @@
 	content="Nice Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
 <meta name="robots" content="noindex,nofollow">
 <title>User Dashboard</title>
-<link rel="canonical"
-	href="https://www.wrappixel.com/templates/niceadmin-lite/" />
-<!-- Favicon icon -->
-<link rel="icon" type="image/png" sizes="16x16"
-	href="../assets/images/favicon.png">
-<!-- Custom CSS -->
-<link href="../assets/libs/chartist/dist/chartist.min.css"
-	rel="stylesheet">
-<!-- Custom CSS -->
-<link href="../dist/css/style.min.css" rel="stylesheet">
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+<jsp:include page="../includes/allcss.jsp"></jsp:include>
 </head>
 
 <body>
@@ -51,7 +36,7 @@
 		<!-- ============================================================== -->
 		<!-- Topbar header - style you can find in pages.scss -->
 		<!-- ============================================================== -->
-		<jsp:include page="../includes/topHeader.jsp"></jsp:include>
+		<%@include file="../includes/topHeader.jsp"%>
 		<!-- ============================================================== -->
 		<!-- End Topbar header -->
 		<!-- ============================================================== -->
@@ -93,6 +78,7 @@
 			<!-- Container fluid  -->
 			<!-- ============================================================== -->
 			<div class="container-fluid">
+			<%@ include file="../includes/notific.jsp"%>
 				<!-- Ravenue - page-view-bounce rate -->
 				<!-- ============================================================== -->
 				<div class="row">
@@ -100,38 +86,77 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-								<h4 class="page-title">Latest Rooms</h4>
-							</div>
-							<div class="table-responsive">
-								<table class="table table-hover">
-									<thead>
-										<tr>
-											<th scope="col">#</th>
-											<th scope="col">Author</th>
-											<th scope="col">Title</th>
-											<th scope="col">Area (m<sup>2</sup>)
-											</th>
-											<th scope="col">Prices (Millions)</th>
-											<th scope="col">Status</th>
-										</tr>
-									</thead>
-									<tbody>
-										<s:iterator value="dataList" var="room">
-											<tr>
-												<th scope="row"><s:property value="id" /></th>
-												<td><s:property value="author" /></td>
-												<td><s:property value="header" /></td>
-												<td><s:property value="area" /></td>
-												<td><s:property value="price" /></td>
-												<td
-													class='<s:if test="%{#room.status == 'Open'}">text-success</s:if><s:elseif test="%{#room.status == 'Closed'}">
-text-warning</s:elseif>'><b><s:property
-															value="status" /></b></td>
+								<h4 class="card-title">File export</h4>
+								<div class="table-responsive">
+									<div id="file_export_wrapper"
+										class="dataTables_wrapper container-fluid dt-bootstrap4">
 
-											</tr>
-										</s:iterator>
-									</tbody>
-								</table>
+										<table id="file_export"
+											class="table table-striped table-bordered display dataTable"
+											role="grid" aria-describedby="file_export_info">
+											<thead>
+												<tr role="row">
+													<th class="sorting_asc" tabindex="0"
+														aria-controls="file_export" rowspan="1" colspan="1"
+														aria-sort="ascending"
+														aria-label="# activate to sort column descending"
+														style="width: 0px;">#</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="file_export" rowspan="1" colspan="1"
+														aria-label="Author: activate to sort column ascending"
+														style="width: 0px;">Author</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="file_export" rowspan="1" colspan="1"
+														aria-label="Title: activate to sort column ascending"
+														style="width: 0px;">Title</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="file_export" rowspan="1" colspan="1"
+														aria-label="Area: activate to sort column ascending"
+														style="width: 0px;">Area (m<sup>2</sup>)
+													</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="file_export" rowspan="1" colspan="1"
+														aria-label="Price: activate to sort column ascending"
+														style="width: 0px;">Price (Millions)</th>
+													<th class="sorting" tabindex="0"
+														aria-controls="file_export" rowspan="1" colspan="1"
+														aria-label="Status: activate to sort column ascending"
+														style="width: 0px;">Status</th>
+												</tr>
+											</thead>
+											<tbody>
+												<s:iterator value="dataList" var="room">
+													<tr>
+														<th scope="row"><s:property value="id" /></th>
+														<td><s:property value="author" /></td>
+														<td><s:property value="header" /></td>
+														<td align="center"><s:property value="area" /></td>
+														<td align="center"><s:property value="price" /></td>
+														<td><s:if test='%{#room.status == "Open"}'>
+																<span class="label label-success">Open</span>
+															</s:if> <s:elseif test='%{#room.status == "Closed"}'>
+																<span class="label label-danger">Closed</span>
+															</s:elseif> <s:else>
+																<span class="label label-inverse">Pending</span>
+															</s:else></td>
+
+													</tr>
+												</s:iterator>
+											</tbody>
+											<tfoot>
+												<tr>
+													<th rowspan="1" colspan="1">#</th>
+													<th rowspan="1" colspan="1">Author</th>
+													<th rowspan="1" colspan="1">Title</th>
+													<th rowspan="1" colspan="1">Area (m<sup>2</sup>)
+													</th>
+													<th rowspan="1" colspan="1">Price (Millions)</th>
+													<th rowspan="1" colspan="1">Status</th>
+												</tr>
+											</tfoot>
+										</table>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -162,30 +187,9 @@ text-warning</s:elseif>'><b><s:property
 		<!-- End Page wrapper  -->
 		<!-- ============================================================== -->
 	</div>
-	<!-- ============================================================== -->
-	<!-- End Wrapper -->
-	<!-- ============================================================== -->
-	<!-- ============================================================== -->
-	<!-- All Jquery -->
-	<!-- ============================================================== -->
-	<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-	<!-- Bootstrap tether Core JavaScript -->
-	<script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
-	<script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-	<!-- slimscrollbar scrollbar JavaScript -->
-	<script src="../assets/extra-libs/sparkline/sparkline.js"></script>
-	<!--Wave Effects -->
-	<script src="../dist/js/waves.js"></script>
-	<!--Menu sidebar -->
-	<script src="../dist/js/sidebarmenu.js"></script>
-	<!--Custom JavaScript -->
-	<script src="../dist/js/custom.min.js"></script>
-	<!--This page JavaScript -->
-	<!--chartis chart-->
-	<script src="../assets/libs/chartist/dist/chartist.min.js"></script>
-	<script
-		src="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-	<script src="../dist/js/pages/dashboards/dashboard1.js"></script>
+
+
+	<jsp:include page="../includes/allfooterjs.jsp"></jsp:include>
 </body>
 
 </html>

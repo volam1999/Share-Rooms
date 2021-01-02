@@ -2,7 +2,9 @@ package net.tpcop.actions;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.Map;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import net.tpcop.model.Database;
@@ -15,6 +17,7 @@ public class RegisterAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 
 	private String fullname, email, password;
+	private Map<String, Object> session = ActionContext.getContext().getSession();
 
 	public String getFullname() {
 		return fullname;
@@ -60,9 +63,13 @@ public class RegisterAction extends ActionSupport {
 			ps.setString(8, "0");
 			int row = ps.executeUpdate();
 			System.out.println(row + "row added");
+			session.put("NOTIFICTYPE", "1");
+			session.put("NOTIFICBODY", "Register account successfully");
 			return SUCCESS;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			session.put("NOTIFICTYPE", "0");
+			session.put("NOTIFICBODY", "Register account failed");
 			return ERROR;
 		}
 	}

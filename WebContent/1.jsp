@@ -136,16 +136,7 @@ p.mb-1 {
 					class="btn btn-primary btn-block btn-lg mt-1 mb-2" />
 			</form>
 		</div>
-		<s:if test='%{#session.NOTIFICBODY != null}'>
-			<script type="text/javascript">
-			 var Msg ='<%=session.getAttribute("NOTIFICBODY")%>';
-				console.log(Msg);
-				alert(Msg);
-				<%
-					request.getSession().removeAttribute("NOTIFICBODY");
-				%>
-			</script>
-		</s:if>
+		<%@ include file="./includes/notific.jsp"%>
 	</div>
 	<script type='text/javascript'>
 		$("#goSignUp").click(function(e) {

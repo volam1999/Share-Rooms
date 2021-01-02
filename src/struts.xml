@@ -22,7 +22,11 @@
 		</global-results>
 
 		<action name="*">
-			<result>/404.jsp/</result>
+			<result type="redirect">
+				<param name="location">404.jsp</param>
+				<param name="namespace">/</param>
+			</result>
+
 		</action>
 
 		<action name="goRooms" class="net.tpcop.actions.RoomsAction"
@@ -39,7 +43,12 @@
 			method="AddRoom">
 			<result name="success">addroom.jsp</result>
 			<result name="error">room.jsp</result>
-			<result name="unverified" type="redirectAction">/user/goProfile</result>
+			<result name="errorAdmin" type="redirectAction">
+				admin/goProfile
+			</result>
+			<result name="errorUser" type="redirectAction">
+				user/goProfile
+			</result>
 		</action>
 
 		<action name="approveRequest"
@@ -59,10 +68,27 @@
 
 		<action name="updateInformation"
 			class="net.tpcop.actions.ProfileAction" method="updateInformation">
-			<result name="success" type="redirectAction">
-				<param name="actionName">goProfile</param>
-				<param name="namespace">/user</param>
+			<result name="user" type="redirectAction">
+				<param name="actionName">user/goProfile</param>
 			</result>
+			<result name="admin" type="redirectAction">
+				<param name="actionName">admin/goProfile</param>
+			</result>
+			<result name="errorAdmin" type="redirectAction">
+				admin/goProfile
+			</result>
+			<result name="errorUser" type="redirectAction">
+				user/goProfile
+			</result>
+		</action>
+
+		<action name="grantAdmin"
+			class="net.tpcop.actions.ProfileAction" method="grantAdmin">
+			<result name="success" type="redirectAction">admin/userList</result>
+		</action>
+		<action name="verifiedProfile"
+			class="net.tpcop.actions.ProfileAction" method="verified">
+			<result name="success" type="redirectAction">admin/userList</result>
 		</action>
 
 		<action name="userList" class="net.tpcop.actions.ProfileAction"
@@ -81,6 +107,10 @@
 			<result name="admin" type="redirectAction">
 				<param name="actionName">goIndex</param>
 				<param name="namespace">admin</param>
+			</result>
+			<result name="error" type="redirect">
+				<param name="location">signin.jsp</param>
+				<param name="namespace">/</param>
 			</result>
 		</action>
 

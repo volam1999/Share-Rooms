@@ -107,6 +107,8 @@ public class IndexAction extends ActionSupport {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.toString());
+			session.put("NOTIFICTYPE", "0");
+			session.put("NOTIFICBODY", "Error: " + e.toString());
 			return ERROR;
 		}
 
@@ -117,7 +119,7 @@ public class IndexAction extends ActionSupport {
 		try {
 			// Connect to database 'tpcop'
 			db = new Database();
-			String query = "SELECT TOP 5 * FROM rooms WHERE status = 'Pending' ORDER BY id DESC ";
+			String query = "SELECT TOP 5 * FROM rooms ORDER BY id DESC ";
 			rs = db.executeQuery(query);
 			dataList = new ArrayList<Room>();
 			if (rs != null) {
@@ -183,9 +185,11 @@ public class IndexAction extends ActionSupport {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.toString());
+			session.put("NOTIFICTYPE", "0");
+			session.put("NOTIFICBODY", "Error: " + e.toString());
 			return ERROR;
 		}
-
+		
 		return SUCCESS;
 	}
 

@@ -14,7 +14,7 @@
 <meta name="description"
 	content="Nice Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework" />
 <meta name="robots" content="noindex,nofollow" />
-<title>Profiles</title>
+<title>User Management</title>
 
 <jsp:include page="../includes/allcss.jsp"></jsp:include>
 
@@ -39,7 +39,7 @@
 		<!-- ============================================================== -->
 		<!-- Topbar header - style you can find in pages.scss -->
 		<!-- ============================================================== -->
-		<jsp:include page="../includes/admin/topHeader.jsp"></jsp:include>
+		<%@include file="../includes/topHeader.jsp"%>
 		<!-- ============================================================== -->
 		<!-- End Topbar header -->
 		<!-- ============================================================== -->
@@ -82,6 +82,7 @@
 			<!-- Container fluid  -->
 			<!-- ============================================================== -->
 			<div class="container-fluid">
+				<%@ include file="../includes/notific.jsp"%>
 				<!-- ============================================================== -->
 				<!-- Start Page Content -->
 				<!-- ============================================================== -->
@@ -150,8 +151,8 @@
 														</td>
 														<td><span
 															style="text-align: left; display: table-cell; min-width: 10px; padding-right: 10px;">
-																<form action="roomDetails" method="POST">
-																	<input name="roomID" type="hidden"
+																<form action="profileDetails" method="POST">
+																	<input name="id" type="hidden"
 																		value='<s:property value="id" />' /> <input
 																		name="authorEmail" type="hidden"
 																		value='<s:property value="author" />' />
@@ -164,27 +165,28 @@
 														</span><span
 															style="text-align: left; display: table-cell; min-width: 10px; padding-right: 10px;">
 																<form action="grantAdmin" method="POST">
-																	<input name="roomID" type="hidden"
+																	<input name="id" type="hidden"
 																		value='<s:property value="id" />' /> <input
-																		name="authorEmail" type="hidden"
-																		value='<s:property value="author" />' />
+																		name="isAdmin" type="hidden"
+																		value='<s:property value="isAdmin" />' />
 																	<button type="submit"
 																		class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn"
 																		data-toggle="tooltip"
-																		data-original-title="Grant Administrator">
+																		data-original-title="Grant or Revoke Admin">
 																		<i class="ti-bolt-alt" aria-hidden="true"></i>
 																	</button>
 																</form>
 														</span> <span
 															style="text-align: left; display: table-cell; min-width: 10px; padding-right: 10px;">
 																<form action="verifiedProfile" method="POST">
-																	<input name="roomID" type="hidden"
+																	<input name="id" type="hidden"
 																		value='<s:property value="id" />' /> <input
-																		name="authorEmail" type="hidden"
-																		value='<s:property value="author" />' />
+																		name="isVerified" type="hidden"
+																		value='<s:property value="isVerified" />' />
 																	<button type="submit"
 																		class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn"
-																		data-toggle="tooltip" data-original-title="Verified">
+																		data-toggle="tooltip"
+																		data-original-title="Verified or Unverified Profile">
 																		<i class="ti-check-box" aria-hidden="true"></i>
 																	</button>
 																</form>
@@ -228,7 +230,7 @@
 			<!-- ============================================================== -->
 			<!-- footer -->
 			<!-- ============================================================== -->
-			<jsp:include page="../includes/admin/footer.jsp"></jsp:include>
+			<jsp:include page="../includes/footer.jsp"></jsp:include>
 			<!-- ============================================================== -->
 			<!-- End footer -->
 			<!-- ============================================================== -->

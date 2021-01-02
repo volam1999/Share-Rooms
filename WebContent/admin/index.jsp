@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -36,7 +37,7 @@
 		<!-- ============================================================== -->
 		<!-- Topbar header - style you can find in pages.scss -->
 		<!-- ============================================================== -->
-		<jsp:include page="../includes/admin/topHeader.jsp"></jsp:include>
+		<%@include file="../includes/topHeader.jsp"%>
 		<!-- ============================================================== -->
 		<!-- End Topbar header -->
 		<!-- ============================================================== -->
@@ -78,15 +79,12 @@
 			<!-- Container fluid  -->
 			<!-- ============================================================== -->
 			<div class="container-fluid">
+				<%@ include file="../includes/notific.jsp"%>
 				<!-- Ravenue - page-view-bounce rate -->
 				<!-- ============================================================== -->
 				<div class="row">
 					<!-- column -->
 					<div class="col-12">
-						<div class="alert alert-info">Note: we recomonded you to
-							please make your one own css file &amp; one js files and add that
-							in your page, so whenever the update of Nice admin comes it does
-							not affect your code.</div>
 						<div class="card-group">
 							<div class="card">
 								<div class="card-body">
@@ -249,11 +247,13 @@
 														<td><s:property value="header" /></td>
 														<td align="center"><s:property value="area" /></td>
 														<td align="center"><s:property value="price" /></td>
-														<td
-															class='<s:if test="%{#room.status == 'Open'}">text-success</s:if><s:elseif test="%{#room.status == 'Closed'}">
-text-warning</s:elseif>'><b
-															class="label label-inverse"><s:property
-																	value="status" /></b></td>
+														<td><s:if test='%{#room.status == "Open"}'>
+																<span class="label label-success label-rounded">Open</span>
+															</s:if> <s:elseif test='%{#room.status == "Closed"}'>
+																<span class="label label-danger label-rounded">Closed</span>
+															</s:elseif> <s:else>
+																<span class="label label-inverse label-rounded">Pending</span>
+															</s:else></td>
 
 													</tr>
 												</s:iterator>

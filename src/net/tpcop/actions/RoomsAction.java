@@ -129,7 +129,10 @@ public class RoomsAction extends ActionSupport {
 		System.out.println(verified);
 		try {
 			if (verified.equals("0")) {
-				return "unverified";
+				session.put("NOTIFICTYPE", "0");
+				session.put("NOTIFICBODY", "Please update the profile info to post a room's request");
+
+				return session.get("ADMIN").toString().equals("1") ? "errorAdmin" : "errorUser";
 			}
 
 			// Connect to database 'tpcop'
@@ -146,10 +149,14 @@ public class RoomsAction extends ActionSupport {
 			ps.setString(7, "Pending");
 			int x = ps.executeUpdate();
 			System.out.println(x + " room added");
+			session.put("NOTIFICTYPE", "1");
+			session.put("NOTIFICBODY", "Sending room request successfully and waiting for an admin to process!");
 			return SUCCESS;
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.toString());
+			session.put("NOTIFICTYPE", "0");
+			session.put("NOTIFICBODY", "Error: " + e.toString());
 			return ERROR;
 		}
 	}
@@ -186,6 +193,8 @@ public class RoomsAction extends ActionSupport {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.toString());
+			session.put("NOTIFICTYPE", "0");
+			session.put("NOTIFICBODY", "Error: " + e.toString());
 			return ERROR;
 		}
 	}
@@ -215,6 +224,8 @@ public class RoomsAction extends ActionSupport {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.toString());
+			session.put("NOTIFICTYPE", "0");
+			session.put("NOTIFICBODY", "Error: " + e.toString());
 			return ERROR;
 		}
 
@@ -246,6 +257,8 @@ public class RoomsAction extends ActionSupport {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.toString());
+			session.put("NOTIFICTYPE", "0");
+			session.put("NOTIFICBODY", "Error: " + e.toString());
 			return ERROR;
 		}
 
@@ -271,8 +284,12 @@ public class RoomsAction extends ActionSupport {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.toString());
+			session.put("NOTIFICTYPE", "0");
+			session.put("NOTIFICBODY", "Error: " + e.toString());
+			return ERROR;
 		}
-
+		session.put("NOTIFICTYPE", "1");
+		session.put("NOTIFICBODY", "Accept room request successfully...");
 		return SUCCESS;
 	}
 
@@ -295,8 +312,13 @@ public class RoomsAction extends ActionSupport {
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.toString());
+			session.put("NOTIFICTYPE", "0");
+			session.put("NOTIFICBODY", "Error: " + e.toString());
+			return ERROR;
 		}
 
+		session.put("NOTIFICTYPE", "1");
+		session.put("NOTIFICBODY", "Abort room request successfully...");
 		return SUCCESS;
 	}
 

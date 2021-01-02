@@ -16,7 +16,7 @@ public class LogoutAction extends ActionSupport {
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
 		Map<String, Object> session = ActionContext.getContext().getSession();
-		session.remove("EMAIL");
+		session.clear();
 		return SUCCESS;
 	}
 

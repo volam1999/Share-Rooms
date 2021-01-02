@@ -50,7 +50,7 @@
 		<!-- ============================================================== -->
 		<!-- Topbar header - style you can find in pages.scss -->
 		<!-- ============================================================== -->
-		<jsp:include page="../includes/admin/topHeader.jsp"></jsp:include>
+		<%@include file="../includes/topHeader.jsp"%>
 		<!-- ============================================================== -->
 		<!-- End Topbar header -->
 		<!-- ============================================================== -->
@@ -92,6 +92,7 @@
 			<!-- Container fluid  -->
 			<!-- ============================================================== -->
 			<div class="container-fluid">
+				<%@ include file="../includes/notific.jsp"%>
 				<!-- ============================================================== -->
 				<!-- Start Page Content -->
 				<!-- ============================================================== -->
@@ -172,8 +173,8 @@
 										<div class="col-md-12">
 											<input name="email" type="email"
 												placeholder='<s:property value="email"/>'
-												class="form-control form-control-line" name="example-email"
-												id="example-email">
+												class="form-control form-control-line" readonly="readonly"
+												name="example-email" id="example-email">
 										</div>
 									</div>
 									<div class="form-group">
@@ -228,7 +229,7 @@
 			<!-- ============================================================== -->
 			<!-- footer -->
 			<!-- ============================================================== -->
-			<jsp:include page="../includes/admin/footer.jsp"></jsp:include>
+			<jsp:include page="../includes/footer.jsp"></jsp:include>
 			<!-- ============================================================== -->
 			<!-- End footer -->
 			<!-- ============================================================== -->

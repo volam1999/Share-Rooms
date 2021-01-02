@@ -12,15 +12,18 @@
 				<a href="goIndex" class="logo"> <!-- Logo icon --> <b
 					class="logo-icon"> <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
 						<!-- Dark Logo icon --> <img src="../assets/images/logo-icon.png"
-						alt="homepage" class="dark-logo" /> <!-- Light Logo icon --> <img
+						alt="homepage" class="dark-logo"> <!-- Light Logo icon --> <img
 						src="../assets/images/logo-light-icon.png" alt="homepage"
-						class="light-logo" />
+						class="light-logo">
 				</b> <!--End Logo icon --> <!-- Logo text --> <span class="logo-text">
 						<!-- dark Logo text --> <img src="../assets/images/logo-text.png"
-						alt="homepage" class="dark-logo" /> <!-- Light Logo text --> <img
+						alt="homepage" class="dark-logo"> <!-- Light Logo text --> <img
 						src="../assets/images/logo-light-text.png" class="light-logo"
-						alt="homepage" />
+						alt="homepage">
 				</span>
+				</a> <a class="sidebartoggler d-none d-md-block"
+					href="javascript:void(0)" data-sidebartype="mini-sidebar"> <i
+					class="mdi mdi-toggle-switch mdi-toggle-switch-off font-20"></i>
 				</a>
 			</div>
 			<!-- ============================================================== -->
@@ -45,6 +48,11 @@
 			<!-- toggle and nav items -->
 			<!-- ============================================================== -->
 			<ul class="navbar-nav float-left mr-auto">
+				<!-- <li class="nav-item d-none d-md-block">
+                            <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar">
+                                <i class="mdi mdi-menu font-24"></i>
+                            </a>
+                        </li> -->
 				<!-- ============================================================== -->
 				<!-- Search -->
 				<!-- ============================================================== -->
@@ -69,20 +77,81 @@
 			<!-- ============================================================== -->
 			<ul class="navbar-nav float-right">
 				<!-- ============================================================== -->
+				<!-- Messages -->
+				<!-- ============================================================== -->
+
+				<!-- ============================================================== -->
+				<!-- End Messages -->
+				<!-- ============================================================== -->
+				<!-- ============================================================== -->
+				<!-- Comment -->
+				<!-- ============================================================== -->
+
+				<!-- ============================================================== -->
+				<!-- End Comment -->
+				<!-- ============================================================== -->
+				<!-- ============================================================== -->
 				<!-- User profile and search -->
 				<!-- ============================================================== -->
 				<li class="nav-item dropdown"><a
-					class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic"
+					class="nav-link dropdown-toggle waves-effect waves-dark pro-pic"
 					href="" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false"><img src="../assets/images/users/1.jpg"
-						alt="user" class="rounded-circle" width="31"></a>
-					<div class="dropdown-menu dropdown-menu-right user-dd animated">
-						<a class="dropdown-item" href="goProfile"><i
-							class="ti-user m-r-5 m-l-5"></i> My Profile</a> <a
-							class="dropdown-item" href="javascript:void(0)"><i
-							class="ti-wallet m-r-5 m-l-5"></i> My Balance</a> <a
-							class="dropdown-item" href="javascript:void(0)"><i
-							class="ti-email m-r-5 m-l-5"></i> Inbox</a>
+					aria-expanded="false"> <img src="../assets/images/users/2.jpg"
+						alt="user" class="rounded-circle" width="40"> <span
+						class="m-l-5 font-medium d-none d-sm-inline-block"><s:property
+								value='%{#session.USERNAME}' /><i class="mdi mdi-chevron-down"></i>
+					</span>
+				</a>
+					<div
+						class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+						<span class="with-arrow"> <span class="bg-primary"></span>
+						</span>
+						<div
+							class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
+							<div class="">
+								<img src="../assets/images/users/2.jpg" alt="user"
+									class="rounded-circle" width="60">
+							</div>
+							<div class="m-l-10">
+								<h4 class="m-b-0">
+									<s:property value='%{#session.USERNAME}' />
+								</h4>
+								<p class=" m-b-0">
+									<s:property value='%{#session.EMAIL}' />
+								</p>
+							</div>
+						</div>
+						<div class="profile-dis scrollable ps-container ps-theme-default"
+							data-ps-id="4f3d2fc8-d6b5-c3e6-8517-1bd4709f134d">
+							<a class="dropdown-item" href="goProfile"> <i
+								class="ti-user m-r-5 m-l-5"></i> My Profile
+							</a> <a class="dropdown-item" href="javascript:void(0)"> <i
+								class="ti-wallet m-r-5 m-l-5"></i> My Balance
+							</a> <a class="dropdown-item" href="javascript:void(0)"> <i
+								class="ti-email m-r-5 m-l-5"></i> Inbox
+							</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="goProfile"> <i
+								class="ti-settings m-r-5 m-l-5"></i> Account Setting
+							</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="logout"> <i
+								class="fa fa-power-off m-r-5 m-l-5"></i> Logout
+							</a>
+							<div class="dropdown-divider"></div>
+							<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+								<div class="ps-scrollbar-x" tabindex="0"
+									style="left: 0px; width: 0px;"></div>
+							</div>
+							<div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px;">
+								<div class="ps-scrollbar-y" tabindex="0"
+									style="top: 0px; height: 0px;"></div>
+							</div>
+						</div>
+						<div class="p-l-30 p-10">
+							<a href="goProfile" class="btn btn-sm btn-success btn-rounded">View
+								Profile</a>
+						</div>
 					</div></li>
 				<!-- ============================================================== -->
 				<!-- User profile and search -->

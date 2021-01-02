@@ -13,6 +13,7 @@ public class LoginAction extends ActionSupport {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private Map<String, Object> session = ActionContext.getContext().getSession();
 
 	private String email, password;
 	private Database db;
@@ -46,10 +47,12 @@ public class LoginAction extends ActionSupport {
 				while (rs.next()) {
 					if (rs.getString("email").trim().equals(email)
 							&& (rs.getString("password").trim().equals(password))) {
-						Map<String, Object> session = ActionContext.getContext().getSession();
 						session.put("EMAIL", email);
-						session.put("VERIFIED", rs.getString("isVerified").toString());
-						session.put("ADMIN", rs.getString("isAdmin").toString());
+						session.put("USERNAME", rs.getNString("fullname"));
+						session.put("VERIFIED", rs.getString("isVerified"));
+						session.put("ADMIN", rs.getString("isAdmin"));
+						session.put("NOTIFICTYPE", "1");
+						session.put("NOTIFICBODY", "Welcome back " + rs.getNString("fullname"));
 
 						if (rs.getString("isAdmin").equals("0")) {
 							return "user";
@@ -57,13 +60,19 @@ public class LoginAction extends ActionSupport {
 							return "admin";
 						}
 					} else {
+						session.put("NOTIFICTYPE", "0");
+						session.put("NOTIFICBODY", "Username or Password is incorrect");
 						return ERROR;
 					}
 				}
 			}
+			session.put("NOTIFICTYPE", "0");
+			session.put("NOTIFICBODY", "Username or Password is incorrect");
 			return ERROR;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			session.put("NOTIFICTYPE", "0");
+			session.put("NOTIFICBODY", "The database is down");
 			return ERROR;
 		}
 	}
