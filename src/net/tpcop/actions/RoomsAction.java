@@ -1,11 +1,17 @@
 package net.tpcop.actions;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import org.apache.commons.io.FileUtils;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -20,12 +26,17 @@ public class RoomsAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 
 	private Database db;
-	private String header, body, name, prices, area, address, roomID, authorName, phone, authorEmail;
+	private String header, body, name, prices, area, address, roomID, authorName, phone, authorEmail, pic1, pic2, pic3;
+	private Date createDate;
 
+	private final String destPath = "D:\\Code\\JAVA\\TPCOP\\WebContent\\images";
 	private List<Room> dataList = null;
 	private ResultSet rs = null;
 	private Map<String, Object> session = ActionContext.getContext().getSession();
 	private String verified = session.get("VERIFIED").toString();
+	private List<File> fileUpload = new ArrayList<File>();
+	private List<String> fileUploadContentType = new ArrayList<String>();
+	private List<String> fileUploadFileName = new ArrayList<String>();
 
 	public String getAddress() {
 		return address;
@@ -115,6 +126,62 @@ public class RoomsAction extends ActionSupport {
 		this.authorEmail = authorEmail;
 	}
 
+	public List<File> getFileUpload() {
+		return fileUpload;
+	}
+
+	public void setFileUpload(List<File> fileUpload) {
+		this.fileUpload = fileUpload;
+	}
+
+	public List<String> getFileUploadContentType() {
+		return fileUploadContentType;
+	}
+
+	public void setFileUploadContentType(List<String> fileUploadContentType) {
+		this.fileUploadContentType = fileUploadContentType;
+	}
+
+	public List<String> getFileUploadFileName() {
+		return fileUploadFileName;
+	}
+
+	public void setFileUploadFileName(List<String> fileUploadFileName) {
+		this.fileUploadFileName = fileUploadFileName;
+	}
+
+	public String getPic1() {
+		return pic1;
+	}
+
+	public void setPic1(String pic1) {
+		this.pic1 = pic1;
+	}
+
+	public String getPic2() {
+		return pic2;
+	}
+
+	public void setPic2(String pic2) {
+		this.pic2 = pic2;
+	}
+
+	public String getPic3() {
+		return pic3;
+	}
+
+	public void setPic3(String pic3) {
+		this.pic3 = pic3;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
 	@Override
 	public String execute() throws Exception {
 		System.out.println(session.get("ADMIN").toString());
@@ -127,17 +194,34 @@ public class RoomsAction extends ActionSupport {
 
 	public String AddRoom() {
 		System.out.println(verified);
+		String uniqueFileName = UUID.randomUUID().toString();
 		try {
+			// check if the user has update personal information
 			if (verified.equals("0")) {
 				session.put("NOTIFICTYPE", "0");
 				session.put("NOTIFICBODY", "Please update the profile info to post a room's request");
-
 				return session.get("ADMIN").toString().equals("1") ? "errorAdmin" : "errorUser";
 			}
 
-			// Connect to database 'tpcop'
+			// save upload file
+			if (!fileUpload.isEmpty()) {
+				for (int i = 0; i < fileUpload.size(); i++) {
+					try {
+						File destFile = new File(destPath, uniqueFileName + fileUploadFileName.get(i));
+						FileUtils.copyFile(fileUpload.get(i), destFile);
+						System.out.println("Uploaded File name: " + uniqueFileName + fileUploadFileName.get(i));
+					} catch (IOException e) {
+						e.printStackTrace();
+						session.put("NOTIFICTYPE", "0");
+						session.put("NOTIFICBODY", "Error: " + e.toString());
+						return ERROR;
+					}
+				}
+			}
+
+//			// Connect to database 'tpcop'
 			db = new Database();
-			String sql = "INSERT INTO rooms VALUES(?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO rooms VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 			PreparedStatement ps = db.getConnection().prepareStatement(sql);
 			ps.setString(1, session.get("EMAIL").toString().trim());
@@ -147,6 +231,11 @@ public class RoomsAction extends ActionSupport {
 			ps.setString(5, area);
 			ps.setNString(6, address);
 			ps.setString(7, "Pending");
+			ps.setNString(8, fileUpload.size() < 1 ? "" : uniqueFileName + fileUploadFileName.get(0));
+			ps.setNString(9, fileUpload.size() < 2 ? "" : uniqueFileName + fileUploadFileName.get(1));
+			ps.setNString(10, fileUpload.size() < 3 ? "" : uniqueFileName + fileUploadFileName.get(2));
+			long millis = System.currentTimeMillis();
+			ps.setDate(11, new Date(millis));
 			int x = ps.executeUpdate();
 			System.out.println(x + " room added");
 			session.put("NOTIFICTYPE", "1");
@@ -165,8 +254,6 @@ public class RoomsAction extends ActionSupport {
 		try {
 			// Connect to database 'tpcop'
 			db = new Database();
-			System.out.println("roomID = " + getRoomID());
-			System.out.println("authorEmail = " + authorEmail);
 			String query = "SELECT * FROM rooms WHERE id =" + roomID;
 			rs = db.executeQuery(query);
 			if (rs != null) {
@@ -176,6 +263,10 @@ public class RoomsAction extends ActionSupport {
 					prices = rs.getString("price");
 					area = rs.getString("area");
 					address = rs.getNString("address");
+					pic1 = (rs.getNString("pic1").isEmpty()) ? "" : "..\\images\\" + rs.getNString("pic1");
+					pic2 = (rs.getNString("pic2").isEmpty()) ? "" : "..\\images\\" + rs.getNString("pic2");
+					pic3 = (rs.getNString("pic3").isEmpty()) ? "" : "..\\images\\" + rs.getNString("pic3");
+					createDate = rs.getDate("created_at");
 					System.out.println("GET room successfully with ID:" + roomID);
 				}
 			}
@@ -218,6 +309,10 @@ public class RoomsAction extends ActionSupport {
 					room.setArea(rs.getString("area"));
 					room.setAddress(rs.getNString("address"));
 					room.setStatus(rs.getString("status"));
+					room.setPic1(rs.getNString("pic1"));
+					room.setPic2(rs.getNString("pic2"));
+					room.setPic3(rs.getNString("pic3"));
+					room.setDate(rs.getDate("created_at"));
 					dataList.add(room);
 				}
 			}

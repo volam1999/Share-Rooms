@@ -1,7 +1,42 @@
 package net.tpcop.model;
 
+import java.sql.Date;
+
 public class Room {
-	private String id, author, header, body, price, area, address, status;
+	private String id, author, header, body, price, area, address, status, pic1, pic2, pic3;
+	private Date date;
+
+	public String getPic1() {
+		return pic1;
+	}
+
+	public void setPic1(String pic1) {
+		this.pic1 = pic1;
+	}
+
+	public String getPic2() {
+		return pic2;
+	}
+
+	public void setPic2(String pic2) {
+		this.pic2 = pic2;
+	}
+
+	public String getPic3() {
+		return pic3;
+	}
+
+	public void setPic3(String pic3) {
+		this.pic3 = pic3;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
 	public Room() {
 		super();

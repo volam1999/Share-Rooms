@@ -93,14 +93,14 @@
 			<!-- Container fluid  -->
 			<!-- ============================================================== -->
 			<div class="container-fluid">
-			<%@ include file="../includes/notific.jsp"%>
+				<%@ include file="../includes/notific.jsp"%>
 				<!-- ============================================================== -->
 				<!-- Start Page Content -->
 				<!-- ============================================================== -->
 				<!-- Row -->
 				<div class="card">
 					<div class="card-body">
-						<form action="addRoom" method="post"
+						<form action="addRoom" method="post" enctype="multipart/form-data"
 							class="form-horizontal form-material">
 							<div class="form-group">
 								<label class="col-md-12">Title</label>
@@ -136,6 +136,13 @@
 									<textarea name="body" rows="5"
 										class="form-control form-control-line" required="required"><s:property
 											value="message" /></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-12">Images</label>
+								<div class="col-md-12">
+									<input name="fileUpload" type="file" multiple="multiple"
+										accept="image/*" class="form-control form-control-line ">
 								</div>
 							</div>
 							<div class="form-group">

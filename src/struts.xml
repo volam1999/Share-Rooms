@@ -42,7 +42,7 @@
 		<action name="addRoom" class="net.tpcop.actions.RoomsAction"
 			method="AddRoom">
 			<result name="success">addroom.jsp</result>
-			<result name="error">room.jsp</result>
+			<result name="error">rooms.jsp</result>
 			<result name="errorAdmin" type="redirectAction">
 				admin/goProfile
 			</result>

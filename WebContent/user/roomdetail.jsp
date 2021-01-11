@@ -13,7 +13,7 @@
 <meta name="description"
 	content="Nice Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework" />
 <meta name="robots" content="noindex,nofollow" />
-<title>Nice Admin Lite Template by WrapPixel</title>
+<title>Room: <s:property value="roomID" /></title>
 <link rel="canonical"
 	href="https://www.wrappixel.com/templates/niceadmin-lite/" />
 <!-- Favicon icon -->
@@ -30,6 +30,9 @@
 </head>
 
 <body>
+
+	<s:set name="pic1" value="pic1" />
+
 	<!-- ============================================================== -->
 	<!-- Preloader - style you can find in spinners.css -->
 	<!-- ============================================================== -->
@@ -91,7 +94,7 @@
 			<!-- Container fluid  -->
 			<!-- ============================================================== -->
 			<div class="container-fluid">
-			<%@ include file="../includes/notific.jsp"%>
+				<%@ include file="../includes/notific.jsp"%>
 				<!-- ============================================================== -->
 				<!-- Start Page Content -->
 				<!-- ============================================================== -->
@@ -99,47 +102,51 @@
 					<div class="col-12">
 						<div class="card">
 							<div class="card-body">
-								<div id="demo" class="carousel slide" data-ride="carousel"
-									style="align-items: center;">
+								<s:if test='%{#pic1 != "" }'>
+									<div id="demo" class="carousel slide" data-ride="carousel"
+										style="align-items: center;">
 
-									<!-- Indicators -->
-									<ul class="carousel-indicators">
-										<li data-target="#demo" data-slide-to="0" class="active"></li>
-										<li data-target="#demo" data-slide-to="1"></li>
-										<li data-target="#demo" data-slide-to="2"></li>
-									</ul>
+										<!-- Indicators -->
+										<ul class="carousel-indicators">
+											<li data-target="#demo" data-slide-to="0" class="active"></li>
+											<li data-target="#demo" data-slide-to="1"></li>
+											<li data-target="#demo" data-slide-to="2"></li>
+										</ul>
 
-									<!-- The slideshow -->
-									<div class="carousel-inner">
-										<div class="carousel-item active">
-											<div class="parent d-flex justify-content-center">
-												<img src="../images/1.jpg" alt="Los Angeles"
-													style="width: 50%; margin: auto; height: 500px;">
+										<!-- The slideshow -->
+										<div class="carousel-inner">
+											<div class="carousel-item active">
+												<div class="parent d-flex justify-content-center">
+													<img src='<s:property value="pic1"/>' alt="Los Angeles"
+														style="width: 50%; margin: auto; height: 500px;">
+												</div>
+											</div>
+											<div class="carousel-item">
+												<div class="parent d-flex justify-content-center">
+													<img src="<s:property value="pic2"/>" alt="Los Angeles"
+														style="width: 50%; margin: auto; height: 500px;">
+												</div>
+											</div>
+											<div class="carousel-item">
+												<div class="parent d-flex justify-content-center">
+													<img src="<s:property value="pic3"/>" alt="Los Angeles"
+														style="width: 50%; margin: auto; height: 500px;">
+												</div>
 											</div>
 										</div>
-										<div class="carousel-item">
-											<div class="parent d-flex justify-content-center">
-												<img src="../images/2.jpg" alt="Los Angeles"
-													style="width: 50%; margin: auto; height: 500px;">
-											</div>
-										</div>
-										<div class="carousel-item">
-											<div class="parent d-flex justify-content-center">
-												<img src="../images/3.jpg" alt="Los Angeles"
-													style="width: 50%; margin: auto; height: 500px;">
-											</div>
-										</div>
+
+										<!-- Left and right controls -->
+										<a class="carousel-control-prev" href="#demo"
+											data-slide="prev"> <span
+											class="carousel-control-prev-icon"></span>
+										</a> <a class="carousel-control-next" href="#demo"
+											data-slide="next"> <span
+											class="carousel-control-next-icon"></span>
+										</a>
+
 									</div>
+								</s:if>
 
-									<!-- Left and right controls -->
-									<a class="carousel-control-prev" href="#demo" data-slide="prev">
-										<span class="carousel-control-prev-icon"></span>
-									</a> <a class="carousel-control-next" href="#demo"
-										data-slide="next"> <span
-										class="carousel-control-next-icon"></span>
-									</a>
-
-								</div>
 								<div class="table-responsive" style="padding-top: 40px;">
 									<table class="table table-hover">
 										<tbody>
@@ -172,14 +179,14 @@
 											</tr>
 											<tr>
 												<th scope="col"><b>Update Date:</b></th>
-												<th scope="col">null</th>
+												<th scope="col"><s:property value="createDate" /></th>
 												<th scope="col">Area:</th>
 												<th scope="col" class="text-danger"><s:property
 														value="area" />m<sup>2</sup></th>
 											</tr>
 											<tr>
 												<th scope="col"><b>Expires Date:</b></th>
-												<th scope="col">null</th>
+												<th scope="col">unlimited</th>
 												<th scope="col">Prices:</th>
 												<th scope="col" class="text-danger"><s:property
 														value="prices" /> Millions Per Month</th>

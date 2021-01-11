@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
 encoding//WebContent/admin/index.jsp=UTF-8
 encoding//WebContent/admin/rooms.jsp=UTF-8
+encoding//WebContent/user/addroom.jsp=UTF-8
 encoding//WebContent/user/roomdetail.jsp=UTF-8

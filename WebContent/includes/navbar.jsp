@@ -24,7 +24,7 @@
 				<li class="sidebar-item"><a
 					class="sidebar-link waves-effect waves-dark sidebar-link"
 					href="addroom.jsp" aria-expanded="false"> <i
-						class="mdi mdi-database-plus"></i> <span class="hide-menu">Add
+						class="mdi mdi-database-plus"></i> <span class="hide-menu">Shares
 							Rooms</span>
 				</a></li>
 				<li class="sidebar-item"><a
